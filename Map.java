@@ -10,12 +10,24 @@ import java.io.FileNotFoundException;
 public class Map {
   private char [][] map;
   private boolean [][] revealed;
+  private static Map instance = null;
 
   /*
   * Loads the first map on creation.
   */
-  public Map() {
+  private Map() {
     loadMap(1);
+  }
+
+  /*
+  * Singleton Design Pattern.
+  * @return Instance of Map.
+  */
+  public static Map getInstance(){
+    if(instance == null){
+      instance = new Map();
+    }
+    return instance;
   }
 
   /*
