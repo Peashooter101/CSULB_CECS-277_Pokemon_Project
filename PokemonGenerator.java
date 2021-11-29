@@ -21,7 +21,10 @@ public class PokemonGenerator {
 	}
 	
 	public static PokemonGenerator getInstance() {
-		
+		if (instance == null) {
+			instance = new PokemonGenerator();
+		}
+		return instance;
 	}
 	
 	public Pokemon generateRandomPokemon(int level) {
