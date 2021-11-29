@@ -116,53 +116,6 @@ public abstract class Pokemon extends Entity {
     return -1;
   }
 
-
-
-  /*
-  * Represents the slam move.
-  * Damage of 0-5 dealt.
-  *
-  * @param p Pokemon to attack.
-  * @return Message describing the event.
-  */
-  @Deprecated
-  public String slam(Pokemon p) {
-    Random rand = new Random();
-    int dmg = rand.nextInt(6);
-    p.takeDamage(dmg);
-    return getName() + " absolutely SLAMMED " + p.getName() + " for " + dmg + " damage!";
-  }
-
-  /*
-  * Represents the tackle move.
-  * Damage of 2-3 dealt.
-  *
-  * @param p Pokemon to attack.
-  * @return Message describing the event.
-  */
-  @Deprecated
-  public String tackle(Pokemon p) {
-    Random rand = new Random();
-    int dmg = rand.nextInt(2) + 2;
-    p.takeDamage(dmg);
-    return getName() + " TACKLED down " + p.getName() + " for " + dmg + " damage!";
-  }
-
-  /*
-  * Represents the punch move.
-  * Damage of 1-4 dealt.
-  *
-  * @param p Pokemon to attack.
-  * @return Message describing the event.
-  */
-  @Deprecated
-  public String punch(Pokemon p) {
-    Random rand = new Random();
-    int dmg = rand.nextInt(4) + 1;
-    p.takeDamage(dmg);
-    return getName() + " sucker PUNCHED " + p.getName() + " for " + dmg + " damage!";
-  }
-
   /*
   * Returns the type based on the Interface used for the Pokemon.
   * 0 represents Fire.
