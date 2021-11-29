@@ -16,7 +16,7 @@ public class PokemonGenerator {
 				String[] temp = r.nextLine().split(",");
 				pokemon.put(temp[0], temp[1]);
 			}
-		} catch (FileNotFoundException e) { System.out.println("PokemonList.txt not found."); }
+		} catch (FileNotFoundException e) { System.out.println("[ERROR] PokemonList.txt not found."); }
 	}
 	
 	public static PokemonGenerator getInstance() {
