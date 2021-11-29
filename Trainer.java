@@ -1,7 +1,3 @@
-package Entity;
-
-import Map.Map;
-import Entity.Pokemon.Pokemon;
 import java.util.ArrayList;
 import java.awt.Point;
 
@@ -18,7 +14,7 @@ public class Trainer extends Entity {
   
   public Trainer(String n, Pokemon p, Map m) {
     // Super Constructor: Entity(Name, Max HP)
-    super(n, 25);
+    super(n, 25, 25);
     this.pokemon = new ArrayList<Pokemon>();
     this.pokemon.add(p);
     this.map = m;

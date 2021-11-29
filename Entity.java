@@ -1,5 +1,3 @@
-package Entity;
-
 /**
 * Defines any entity within this game.
 * Entities describe any "living thing".
@@ -16,10 +14,10 @@ public abstract class Entity {
   * @param n Entity Name
   * @param mHp Maximum Hit Points
   */
-  public Entity(String n, int mHp) {
+  public Entity(String n, int h, int m) {
     this.name = n;
-    this.maxHp = mHp;
-    this.hp = mHp;
+    this.hp = h;
+    this.maxHp = m;
   }
 
   /*

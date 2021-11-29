@@ -1,5 +1,3 @@
-package Map;
-
 import java.awt.Point;
 import java.util.Scanner;
 import java.io.File;
@@ -30,13 +28,17 @@ public class Map {
   */
   public void loadMap(int mapNum) {
     Scanner fileScan;
-    File file = new File("Map/Area"+mapNum+".txt");
+    File file = new File("src/Area"+mapNum+".txt");
     int xCount = 0;
     int xIndex = 0;
 
     // Count Total Lines
     try { fileScan = new Scanner(file); }
-    catch (FileNotFoundException e) { return; }
+    catch (FileNotFoundException e) {
+      System.out.println("[FATAL ERROR] FAILED TO LOAD MAP, SEE FILE PATH IN Map.java");
+      e.printStackTrace();
+      return;
+    }
 
     while (fileScan.hasNextLine()) {
       xCount++;

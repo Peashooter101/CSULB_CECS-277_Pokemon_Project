@@ -1,6 +1,3 @@
-import Entity.*;
-import Entity.Pokemon.*;
-import Map.*;
 import java.awt.Point;
 import java.util.Random;
 
@@ -32,17 +29,7 @@ class Main {
 
     System.out.println("Great to meet you " + playerName + "\nChoose your first Pokemon:");
     System.out.println("1. Charmander\n2. Bulbasaur\n3. Squirtle");
-    switch (CheckInput.getIntRange(1,3)) {
-      case 1:
-        playerPokemon = new Charmander();
-        break;
-      case 2:
-        playerPokemon = new Bulbasaur();
-        break;
-      case 3:
-        playerPokemon = new Squirtle();
-        break;
-    }
+    // TODO: Give player a starter.
     System.out.println();
 
     // Create Player Trainer
@@ -230,20 +217,7 @@ class Main {
   */
   static Pokemon chooseRandomPokemon() {
     Random rand = new Random();
-    switch(rand.nextInt(6)) {
-      case 0:
-        return new Bulbasaur();
-      case 1:
-        return new Charmander();
-      case 2:
-        return new Oddish();
-      case 3:
-        return new Ponyta();
-      case 4:
-        return new Squirtle();
-      case 5:
-        return new Staryu();
-    }
+    // TODO: Return random pokemon
     return null;
   }
 
