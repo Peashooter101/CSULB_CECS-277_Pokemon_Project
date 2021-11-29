@@ -6,7 +6,10 @@ class Main {
   /*
   * Game Execution
   */
-  public static void main(String[] args) { 
+  public static void main(String[] args) {
+    //Debug Area
+	
+	  
     // Constants
     final Point MAP_1_FINISH = new Point(4, 4);
     final Point MAP_2_FINISH = new Point(0, 3);
