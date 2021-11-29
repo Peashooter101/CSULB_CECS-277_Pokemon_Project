@@ -14,7 +14,7 @@ public class Grass extends Pokemon {
     if (atkType == 1) { super.getAttackMenu(atkType); }
     if (atkType == 2) { return "ATTACK MENU"; }
 
-    return "[FATAL ERROR] INVALID ATTACK MENU in " + this.getClass().getname();
+    return "[FATAL ERROR] INVALID ATTACK MENU in " + this.getClass().getName();
   }
 
   /**
@@ -37,7 +37,6 @@ public class Grass extends Pokemon {
    */
   @Override
   public String getAttackString(int atkType, int move) {
-    if (atkType == 1) { super.getAttackString(atkType, move); }
     if (atkType == 2) {
       switch(move) {
         case 1:
@@ -46,18 +45,48 @@ public class Grass extends Pokemon {
           return "SPECIAL 2";
         case 3:
           return "SPECIAL 3";
+        default:
+          return "[ERROR ATK MOVE]";
       }
     }
 
-    return "[ERROR]";
+    return super.getAttackString(atkType, move);
   }
 
+  /**
+   * Returns the attack damage.
+   * @param atkType Attack Type represented as int.
+   * @param move Move represented as int.
+   * @return Damage value to be used, -1 if invalid atkType / move.
+   */
+  @Override
   public int getAttackDamage(int atkType, int move) {
+    if (atkType == 2) {
+      switch (move) {
+        case 1:
+          return 1; // TODO: Determine Attack Damage
+        case 2:
+          return 2; // TODO: Determine Attack Damage
+        case 3:
+          return 3; // TODO: Determine Attack Damage
+        default:
+          return -1;
+      }
+    }
 
+    return super.getAttackDamage(atkType, move);
   }
 
-  public double getAttackMulitplier(Pokemon p, int atkType) {
-
+  /**
+   * Returns the attack multiplier based on the battle table.
+   * TODO: Figure out why this is overridden here.
+   * @param p Pokemon
+   * @param atkType Attack Type represented by int.
+   * @return Multiplier depending on types, 1.0 if atkType is 1 (Basic).
+   */
+  @Override
+  public double getAttackMultiplier(Pokemon p, int atkType) {
+    return super.getAttackMultiplier(p, atkType);
   }
 
 }
