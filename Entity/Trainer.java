@@ -11,10 +11,10 @@ import java.awt.Point;
 */
 public class Trainer extends Entity {
 
-  int money, potions, pokeballs;
-  Point loc;
-  Map map;
-  ArrayList<Pokemon> pokemon; 
+  private int money, potions, pokeballs;
+  private Point loc;
+  private Map map;
+  private ArrayList<Pokemon> pokemon; 
   
   public Trainer(String n, Pokemon p, Map m) {
     // Super Constructor: Entity(Name, Max HP)

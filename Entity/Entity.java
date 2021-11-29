@@ -5,9 +5,9 @@ package Entity;
 * Entities describe any "living thing".
 */
 public abstract class Entity {
-  String name;
-  int hp;
-  int maxHp;
+  private String name;
+  private int hp;
+  private int maxHp;
 
   /*
   * Constructor.

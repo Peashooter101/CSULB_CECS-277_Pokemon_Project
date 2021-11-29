@@ -10,8 +10,8 @@ import java.io.FileNotFoundException;
 * Aggregated to Trainer.
 */
 public class Map {
-  char [][] map;
-  boolean [][] revealed;
+  private char [][] map;
+  private boolean [][] revealed;
 
   /*
   * Loads the first map on creation.
