@@ -13,8 +13,7 @@ public class PokemonGenerator {
 			Scanner r = new Scanner(new File("PokemonList.txt"));
 			
 			while (r.hasNextLine()) {
-				//String[] temp = r.nextLine().split(",");
-				
+				String[] temp = r.nextLine().split(",");
 				pokemon.put(temp[0], temp[1]);
 			}
 		} catch (FileNotFoundException e) { System.out.println("PokemonList.txt not found."); }
