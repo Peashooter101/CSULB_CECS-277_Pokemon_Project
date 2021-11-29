@@ -5,10 +5,10 @@ import java.util.Random;
 */
 public abstract class Pokemon extends Entity {
   
-  /**
-   * Battle Table represents type advantages for Fire [0], Water [1], and Grass [2].
-   * battleTable[Attacking Type][Defending Type]
-   */
+  /*
+  * Battle Table represents type advantages for Fire [0], Water [1], and Grass [2].
+  * battleTable[Attacking Type][Defending Type]
+  */
   public static final double [][] battleTable = {{1,.5,2},{2,1,.5},{.5,2,1}};
 
   /*
@@ -89,19 +89,17 @@ public abstract class Pokemon extends Entity {
           return "TACKLED";
         case 3:
           return "PUNCHED";
-        default:
-          return "[ERROR ATK MOVE]";
       }
     }
 
-    return "[ERROR ATK TYPE]";
+    return "[ERROR]";
   }
 
   /**
    * Returns the attack damage.
-   * @param atkType Attack Type represented as int.
-   * @param move Move represented as int.
-   * @return Damage value to be used, -1 if invalid atkType / move.
+   * @param atkType
+   * @param move
+   * @return
    */
   public int getAttackDamage(int atkType, int move) {
     if (atkType == 1) {
@@ -112,33 +110,20 @@ public abstract class Pokemon extends Entity {
           return 2; // TODO: Determine Attack Damage
         case 3:
           return 3; // TODO: Determine Attack Damage
-        default:
-          return -1;
       }
     }
 
     return -1;
   }
 
-  /**
-   * Returns the attack multiplier based on the battle table.
-   * @param p Pokemon
-   * @param atkType Attack Type represented by int.
-   * @return Multiplier depending on types, 1.0 if atkType is 1 (Basic).
-   */
-  public double getAttackMultiplier(Pokemon p, int atkType) {
-    if (atkType == 1) { return 1.0; }
-    return battleTable[getType()][p.getType()];
-  }
-
-  /**
-   * Returns the type based on the Class used for the Pokemon.
-   * 0 represents Fire.
-   * 1 represents Water.
-   * 2 represents Grass.
-   *
-   * @return Integer representing Pokemon Type. -1 if no type found.
-   */
+  /*
+  * Returns the type based on the Interface used for the Pokemon.
+  * 0 represents Fire.
+  * 1 represents Water.
+  * 2 represents Grass.
+  *
+  * @return Integer representing Pokemon Type. -1 if no type found.
+  */
   public int getType() {
     if (this instanceof Fire) { return 0; }
     if (this instanceof Water) { return 1; }
