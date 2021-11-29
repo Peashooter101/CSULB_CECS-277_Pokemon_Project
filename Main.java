@@ -1,12 +1,17 @@
 import java.awt.Point;
 import java.util.Random;
+import java.util.HashMap;
 
 class Main {
   /*
   * Game Execution
   */
   public static void main(String[] args) {
-    
+    //Debug Area
+	PokemonGenerator test = PokemonGenerator.getInstance();
+	Pokemon rand = test.generateRandomPokemon(5);
+	
+	  
     // Constants
     final Point MAP_1_FINISH = new Point(4, 4);
     final Point MAP_2_FINISH = new Point(0, 3);
