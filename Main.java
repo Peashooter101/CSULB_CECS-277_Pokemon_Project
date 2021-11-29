@@ -8,8 +8,6 @@ class Main {
   */
   public static void main(String[] args) {
     //Debug Area
-	PokemonGenerator test = PokemonGenerator.getInstance();
-	Pokemon rand = test.generateRandomPokemon(5);
 	
 	  
     // Constants
