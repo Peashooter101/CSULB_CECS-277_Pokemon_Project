@@ -9,6 +9,7 @@ public class PokemonGenerator {
 	private static PokemonGenerator instance = null;
 	
 	private PokemonGenerator() {
+		
 		try {
 			pokemon = new HashMap<String, String>();
 			Scanner r = new Scanner(new File("PokemonList.txt"));
@@ -18,13 +19,16 @@ public class PokemonGenerator {
 				pokemon.put(temp[0], temp[1]);
 			}
 		} catch (FileNotFoundException e) { System.out.println("PokemonList.txt not found."); }
+		
 	}
 	
 	public static PokemonGenerator getInstance() {
+		
 		if (instance == null) {
 			instance = new PokemonGenerator();
 		}
 		return instance;
+		
 	}
 	
 	public Pokemon generateRandomPokemon(int level) {
@@ -65,13 +69,36 @@ public class PokemonGenerator {
 	
 	public Pokemon getPokemon(String name) {
 		
+		
 	}
 	
 	public Pokemon addRandomBuff(Pokemon p) {
 		
+		int randomBuff = (int)(Math.random() * 1);
+		
+		switch(randomBuff) {
+		
+		case 0:
+			//buff
+		case 1:
+			//buff
+			
+		}
+		
 	}
 	
 	public Pokemon addRandomDebuff(Pokemon p) {
+		
+		int randomDebuff = (int)(Math.random() * 1);
+		
+		switch(randomDebuff) {
+		
+		case 0:
+			//debuff
+		case 1:
+			//debuff
+			
+		}
 		
 	}
 }
