@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.io.*;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class PokemonGenerator {
 	
@@ -27,6 +28,38 @@ public class PokemonGenerator {
 	}
 	
 	public Pokemon generateRandomPokemon(int level) {
+		
+		ArrayList<String> keys = new ArrayList<String>();
+		int randIndex = (int)(Math.random() * pokemon.size());
+		Pokemon randomPokemon;
+		
+		for (String key : pokemon.keySet()) {
+			keys.add(key);
+		}
+		
+		switch(pokemon.get(keys.get(randIndex))) {
+		
+		case "Fire":
+			System.out.println("Fire");
+			randomPokemon = new Fire(keys.get(randIndex), 25, 25);
+			break;
+			
+		case "Grass":
+			System.out.println("Grass");
+			randomPokemon = new Grass(keys.get(randIndex), 25, 25);
+			break;
+			
+		case "Water":
+			System.out.println("Water");
+			randomPokemon = new Water(keys.get(randIndex), 25, 25);
+			break;
+		
+		default:
+			System.out.println("Unable to find correct type");
+			randomPokemon = null;
+		}
+		
+		return randomPokemon;
 		
 	}
 	

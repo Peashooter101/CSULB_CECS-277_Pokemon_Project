@@ -6,7 +6,6 @@ class Main {
   * Game Execution
   */
   public static void main(String[] args) {
-    
     // Constants
     final Point MAP_1_FINISH = new Point(4, 4);
     final Point MAP_2_FINISH = new Point(0, 3);
@@ -14,7 +13,7 @@ class Main {
 
     // Program Variables
     Trainer player;
-    Map map = new Map();
+    Map map = Map.getInstance();
     Random rand = new Random();
     
     // Menu Boolean
