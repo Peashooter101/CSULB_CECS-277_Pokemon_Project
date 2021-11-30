@@ -131,6 +131,7 @@ public abstract class Pokemon extends Entity {
 
   /**
    * Returns the attack multiplier based on the battle table.
+   * Attack Multiplier Damage = Damage * Multiplier
    * @param p Pokemon
    * @param atkType Attack Type represented by int.
    * @return Multiplier depending on types, 1.0 if atkType is 1 (Basic).
@@ -141,11 +142,21 @@ public abstract class Pokemon extends Entity {
   }
 
   /**
+   * Returns the attack bonus based on Decorator
+   * Attack Bonus Damage = Damage + Bonus
+   * @param atkType Attack Type represented by int.
+   * @return Attack Bonus
+   */
+  public int getAttackBonus(int atkType) {
+    if (atkType == 1) { return 0; }
+    return 0;
+  }
+
+  /**
    * Returns the type based on the Class used for the Pokemon.
    * 0 represents Fire.
    * 1 represents Water.
    * 2 represents Grass.
-   *
    * @return Integer representing Pokemon Type. -1 if no type found.
    */
   public int getType() {

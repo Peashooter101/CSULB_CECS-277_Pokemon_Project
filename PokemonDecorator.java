@@ -3,14 +3,11 @@ public abstract class PokemonDecorator extends Pokemon {
 	private Pokemon pokemon;
 	
 	public PokemonDecorator(Pokemon p, String extraName, int extraHp) {
-		// ? not sure if correct super constructor call
-		super(extraName, extraHp, extraHp);
+		super(p.getName() + " " + extraName, p.getHp() + extraHp, p.getMaxHp() + extraHp);
 		pokemon = p;
 	}
 	
-	public String getAttackMenu(int atkType) {
-		return pokemon.getAttackMenu(atkType);
-	}
+	public String getAttackMenu(int atkType) { return pokemon.getAttackMenu(atkType); }
 	
 	public int getNumAttackMenuItems(int atkType) {
 		return pokemon.getNumAttackMenuItems(atkType);
@@ -31,5 +28,7 @@ public abstract class PokemonDecorator extends Pokemon {
 	public int getAttackbonus(int atkType) {
 		return pokemon.getAttackBonus(atkType);
 	}
+
+	public int getType() { return pokemon.getType(); }
 	
 }
