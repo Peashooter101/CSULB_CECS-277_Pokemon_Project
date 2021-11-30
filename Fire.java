@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Fire extends Pokemon {
 
   public Fire(String n, int h, int m) {
@@ -40,18 +42,16 @@ public class Fire extends Pokemon {
     if (atkType == 2) {
       switch (move) {
         case 1:
-          return "SPECIAL 1";
+          return "BURNED";
         case 2:
-          return "SPECIAL 2";
+          return "BLASTED";
         case 3:
-          return "SPECIAL 3";
+          return "HIT WITH A FIREY FIST";
         default:
           return "[ERROR ATK MOVE]";
       }
     }
-
     return super.getAttackString(atkType, move);
-
   }
 
   /**
@@ -61,19 +61,19 @@ public class Fire extends Pokemon {
    * @return Damage value to be used, -1 if invalid atkType / move.
    */
   public int getAttackDamage(int atkType, int move) {
+    Random random = new Random();
     if (atkType == 2) {
       switch (move) {
         case 1:
-          return 1; // TODO: Determine Attack Damage
+          return random.nextInt(4); // TODO: Determine Attack Damage
         case 2:
-          return 2; // TODO: Determine Attack Damage
+          return random.nextInt(4) + 1; // TODO: Determine Attack Damage
         case 3:
-          return 3; // TODO: Determine Attack Damage
+          return random.nextInt(3) + 1; // TODO: Determine Attack Damage
         default:
           return -1;
       }
     }
-
     return super.getAttackDamage(atkType, move);
   }
 

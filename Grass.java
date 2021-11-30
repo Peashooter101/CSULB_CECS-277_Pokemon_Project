@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Grass extends Pokemon {
 
   public Grass(String n, int h, int m) {
@@ -40,16 +42,15 @@ public class Grass extends Pokemon {
     if (atkType == 2) {
       switch(move) {
         case 1:
-          return "SPECIAL 1";
+          return "WHIPPED WITH A VINE";
         case 2:
-          return "SPECIAL 2";
+          return "CUT BY LEAVES";
         case 3:
-          return "SPECIAL 3";
+          return "BEAMED BY THE SUN";
         default:
           return "[ERROR ATK MOVE]";
       }
     }
-
     return super.getAttackString(atkType, move);
   }
 
@@ -62,18 +63,18 @@ public class Grass extends Pokemon {
   @Override
   public int getAttackDamage(int atkType, int move) {
     if (atkType == 2) {
+      Random random = new Random();
       switch (move) {
         case 1:
-          return 1; // TODO: Determine Attack Damage
+          return random.nextInt(3) + 1;
         case 2:
-          return 2; // TODO: Determine Attack Damage
+          return random.nextInt(3) + 2;
         case 3:
-          return 3; // TODO: Determine Attack Damage
+          return random.nextInt(6);
         default:
           return -1;
       }
     }
-
     return super.getAttackDamage(atkType, move);
   }
 

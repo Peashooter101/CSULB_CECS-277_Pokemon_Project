@@ -69,9 +69,18 @@ public abstract class Pokemon extends Entity {
    */
   public String attack(Pokemon p, int atkType, int move) {
     int attackDmg = getAttackDamage(atkType, move);
+    double attackMod = getAttackMultiplier(p, atkType);
+    attackDmg *= attackMod;
     String attackString = getAttackString(atkType, move);
+    String returnString = "";
+
     p.takeDamage(attackDmg);
-    return getName() + " has " + attackString + " " + p.getName() + " dealing " + attackDmg + " damage!";
+
+    returnString += getName() + " was " + attackString + " " + p.getName() + " dealing " + attackDmg + " damage!";
+    if (attackMod == 2.0) { returnString += "\nIt was super effective!"; }
+    if (attackMod == 0.5) { returnString += "\nIt was not very effective!"; }
+
+    return returnString;
   }
 
   /**
@@ -104,20 +113,20 @@ public abstract class Pokemon extends Entity {
    * @return Damage value to be used, -1 if invalid atkType / move.
    */
   public int getAttackDamage(int atkType, int move) {
+    Random random = new Random();
     if (atkType == 1) {
       switch (move) {
         case 1:
-          return 1; // TODO: Determine Attack Damage
+          return random.nextInt(6);
         case 2:
-          return 2; // TODO: Determine Attack Damage
+          return random.nextInt(2) + 2;
         case 3:
-          return 3; // TODO: Determine Attack Damage
+          return random.nextInt(4) + 1;
         default:
           return -1;
       }
     }
-
-    return -1;
+    return -2;
   }
 
   /**

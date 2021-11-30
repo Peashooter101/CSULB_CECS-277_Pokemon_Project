@@ -14,7 +14,7 @@ class Main {
 
     // Program Variables
     Trainer player;
-    Map map = new Map();
+    Map map = Map.getInstance();
     Random rand = new Random();
     
     // Menu Boolean
