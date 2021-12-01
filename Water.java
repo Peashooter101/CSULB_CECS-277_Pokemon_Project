@@ -67,11 +67,11 @@ public class Water extends Pokemon {
       Random random = new Random();
       switch (move) {
         case 1:
-          return random.nextInt(4) + 2;
+          return random.nextInt(4) + 2 + getAttackBonus(atkType);
         case 2:
-          return random.nextInt(3) + 1;
+          return random.nextInt(3) + 1 + getAttackBonus(atkType);
         case 3:
-          return random.nextInt(4) + 1;
+          return random.nextInt(4) + 1 + getAttackBonus(atkType);
         default:
           return -1;
       }

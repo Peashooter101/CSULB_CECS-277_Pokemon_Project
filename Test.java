@@ -10,16 +10,25 @@ public class Test {
         System.out.println("Testing Systems...");
 
         try { testPokemonGen(); }
-        catch (Exception e) { System.out.println("Failed to successfully generate a Random Pokemon"); }
+        catch (Exception e) { System.out.println("Failed: Generate a random Pokemon"); }
 
         try { testPokemonDebuff(); }
-        catch (Exception e) { System.out.println("Failed to successfully debuff a Pokemon"); }
+        catch (Exception e) { System.out.println("Failed: Pokemon Debuff"); }
 
         try { testPokemonBuff(); }
-        catch (Exception e) { System.out.println("Failed to successfully buff a Pokemon"); }
+        catch (Exception e) { System.out.println("Failed: Pokemon Buff"); }
 
         try { testPokemonBuffArraylist(); }
-        catch (Exception e) { System.out.println("Failed to successfully buff a Pokemon"); }
+        catch (Exception e) { System.out.println("Failed: Pokemon Buff Array List"); }
+
+        try { testPokemonAttackValues(); }
+        catch (Exception e) { System.out.println("Failed: Pokemon Attack Values"); }
+
+        try { testPokemonAttackValuesBuffs(); }
+        catch (Exception e) { System.out.println("Failed: Pokemon Attack Values Buffs"); }
+
+        try { testPokemonAttackValuesBuffsSlam(); }
+        catch (Exception e) { System.out.println("Failed: Pokemon Attack Values Buffs Slam"); }
 
     }
 
@@ -78,6 +87,52 @@ public class Test {
         for (Pokemon p : pokemon) {
             System.out.print("   " + p.toString());
         }
+    }
+
+    private static void testPokemonAttackValues() {
+        System.out.println("╔═════\n║ Pokemon Attack Values\n╚═════");
+        Pokemon p1 = PokemonGenerator.getInstance().generateRandomPokemon(1);
+        Pokemon p2 = PokemonGenerator.getInstance().generateRandomPokemon(1);
+        System.out.print("Attacker: " + p1.toString());
+        System.out.print("Defender: " + p2.toString());
+        System.out.println("═════\n" + p1.attack(p2, 1, 1));
+        System.out.println(p1.attack(p2, 1, 2));
+        System.out.println(p1.attack(p2, 1, 3) + "\n═════");
+        System.out.print("Attacker: " + p1.toString());
+        System.out.print("Defender: " + p2.toString());
+        System.out.println("═════\n" + p1.attack(p2, 2, 1));
+        System.out.println(p1.attack(p2, 2, 2));
+        System.out.println(p1.attack(p2, 2, 3) + "\n═════");
+        System.out.print("Attacker: " + p1.toString());
+        System.out.print("Defender: " + p2.toString());
+    }
+
+    private static void testPokemonAttackValuesBuffs() {
+        System.out.println("╔═════\n║ Pokemon Attack Values (Level 20)\n╚═════");
+        Pokemon p1 = PokemonGenerator.getInstance().generateRandomPokemon(20);
+        Pokemon p2 = PokemonGenerator.getInstance().generateRandomPokemon(20);
+        System.out.print("Attacker: " + p1.toString());
+        System.out.print("Defender: " + p2.toString());
+        System.out.println("═════\n" + p1.attack(p2, 1, 1));
+        System.out.println(p1.attack(p2, 1, 2));
+        System.out.println(p1.attack(p2, 1, 3) + "\n═════");
+        System.out.print("Attacker: " + p1.toString());
+        System.out.print("Defender: " + p2.toString());
+        System.out.println("═════\n" + p1.attack(p2, 2, 1));
+        System.out.println(p1.attack(p2, 2, 2));
+        System.out.println(p1.attack(p2, 2, 3) + "\n═════");
+        System.out.print("Attacker: " + p1.toString());
+        System.out.print("Defender: " + p2.toString());
+    }
+
+    private static void testPokemonAttackValuesBuffsSlam() {
+        System.out.println("╔═════\n║ Pokemon Attack Values (Level 20)\n╚═════");
+        Pokemon p1 = PokemonGenerator.getInstance().generateRandomPokemon(20);
+        Pokemon p2 = PokemonGenerator.getInstance().generateRandomPokemon(1);
+        System.out.print("Attacker: " + p1.toString());
+        System.out.print("Defender: " + p2.toString());
+        System.out.println("═════");
+        for (int i = 0; i < 100000; i++) { System.out.println(p1.attack(p2, 1, 1)); }
     }
 
 }

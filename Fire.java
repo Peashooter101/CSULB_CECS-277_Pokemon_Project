@@ -68,11 +68,11 @@ public class Fire extends Pokemon {
     if (atkType == 2) {
       switch (move) {
         case 1:
-          return random.nextInt(4);
+          return random.nextInt(4) + getAttackBonus(atkType);
         case 2:
-          return random.nextInt(4) + 1;
+          return random.nextInt(4) + 1 + getAttackBonus(atkType);
         case 3:
-          return random.nextInt(3) + 1;
+          return random.nextInt(3) + 1 + getAttackBonus(atkType);
         default:
           return -1;
       }

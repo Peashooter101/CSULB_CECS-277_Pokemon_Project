@@ -67,11 +67,11 @@ public class Grass extends Pokemon {
       Random random = new Random();
       switch (move) {
         case 1:
-          return random.nextInt(3) + 1;
+          return random.nextInt(3) + 1 + getAttackBonus(atkType);
         case 2:
-          return random.nextInt(3) + 2;
+          return random.nextInt(3) + 2 + getAttackBonus(atkType);
         case 3:
-          return random.nextInt(6);
+          return random.nextInt(6) + getAttackBonus(atkType);
         default:
           return -1;
       }

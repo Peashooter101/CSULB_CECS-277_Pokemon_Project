@@ -55,7 +55,6 @@ public abstract class Pokemon extends Entity {
 
   /**
    * Accomplishes an attack.
-   *
    * @param p Pokemon to attack.
    * @param atkType Attack Type
    * @param move Integer representing the attack.
@@ -111,11 +110,11 @@ public abstract class Pokemon extends Entity {
     if (atkType == 1) {
       switch (move) {
         case 1:
-          return random.nextInt(6);
+          return random.nextInt(6) + getAttackBonus(atkType);
         case 2:
-          return random.nextInt(2) + 2;
+          return random.nextInt(2) + 2 + getAttackBonus(atkType);
         case 3:
-          return random.nextInt(4) + 1;
+          return random.nextInt(4) + 1 + getAttackBonus(atkType);
         default:
           System.out.println("Invalid Move");
           return 0;
