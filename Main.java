@@ -15,6 +15,8 @@ class Main {
     Trainer player;
     Map map = Map.getInstance();
     Random rand = new Random();
+    PokemonGenerator pokemonGenerator = PokemonGenerator.getInstance();
+    int level = 1;
     
     // Menu Boolean
     boolean mainMenuActive = true;
@@ -28,7 +30,21 @@ class Main {
 
     System.out.println("Great to meet you " + playerName + "\nChoose your first Pokemon:");
     System.out.println("1. Charmander\n2. Bulbasaur\n3. Squirtle");
-    // TODO: Give player a starter.
+
+    //Give player starter pokemon
+    switch(CheckInput.getIntRange(1,3)){
+      case 1:
+        playerPokemon = pokemonGenerator.getPokemon("Charmander");
+        break;
+      case 2:
+        playerPokemon= pokemonGenerator.getPokemon("Bulbasaur");
+        break;
+      case 3:
+        playerPokemon = pokemonGenerator.getPokemon("Squirtle");
+    }
+
+
+
     System.out.println();
 
     // Create Player Trainer
@@ -80,14 +96,17 @@ class Main {
       if (mapMarker == 'f') {
         System.out.println("You found the finish!\n");
         if (player.getLocation().equals(MAP_1_FINISH)) {
+          level++;
           map.loadMap(2);
           map.reveal(player.getLocation());
         }
         if (player.getLocation().equals(MAP_2_FINISH)) {
+          level++;
           map.loadMap(3);
           map.reveal(player.getLocation());
         }
         if (player.getLocation().equals(MAP_3_FINISH)) {
+          level++;
           map.loadMap(1);
           map.reveal(player.getLocation());
         }
@@ -112,7 +131,7 @@ class Main {
       }
       // Wild Pokemon Encounter
       if (mapMarker == 'w') {
-        Pokemon wild = chooseRandomPokemon();
+        Pokemon wild = chooseRandomPokemon(level);
         System.out.println("You encountered a wild " + wild.getName() + "!\n");
         int pokemonNum = player.getNumPokemon();
         trainerAttack(player, wild);
@@ -148,7 +167,7 @@ class Main {
             break;
           // Help a Team Rocket Grunt Encounter
           case 1:
-            Pokemon pokemon = chooseRandomPokemon();
+            Pokemon pokemon = chooseRandomPokemon(level);
 
             System.out.println("A Team Rocket Grunt is screaming, running away from an angered " + pokemon.getName() + "!");
             System.out.println("Do you help him? (Y/N)");
@@ -212,12 +231,11 @@ class Main {
   /*
   * Chooses a random pokemon.
   *
-  * @return A random pokemon as a Pokemon Object.
+  * @return A random pokemon as a Pokemon Object with random buff based on level.
   */
-  static Pokemon chooseRandomPokemon() {
-    Random rand = new Random();
-    // TODO: Return random pokemon
-    return null;
+  static Pokemon chooseRandomPokemon(int level) {
+    PokemonGenerator pokemonGenerator = PokemonGenerator.getInstance();
+    return pokemonGenerator.generateRandomPokemon(level);
   }
 
   /*
