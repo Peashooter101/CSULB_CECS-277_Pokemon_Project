@@ -1,5 +1,8 @@
 import java.util.Random;
 
+/**
+ * Fire Type Pokemon Class
+ */
 public class Fire extends Pokemon {
 
   public Fire(String n, int h, int m) {
@@ -26,9 +29,8 @@ public class Fire extends Pokemon {
    */
   @Override
   public int getNumAttackMenuItems(int atkType) {
-    if (atkType == 1) { super.getNumAttackMenuItems(atkType); }
     if (atkType == 2) { return 3; }
-    return -1;
+    return super.getNumAttackMenuItems(atkType);
   }
 
   /**
@@ -60,16 +62,17 @@ public class Fire extends Pokemon {
    * @param move Move represented as int.
    * @return Damage value to be used, -1 if invalid atkType / move.
    */
+  @Override
   public int getAttackDamage(int atkType, int move) {
     Random random = new Random();
     if (atkType == 2) {
       switch (move) {
         case 1:
-          return random.nextInt(4); // TODO: Determine Attack Damage
+          return random.nextInt(4);
         case 2:
-          return random.nextInt(4) + 1; // TODO: Determine Attack Damage
+          return random.nextInt(4) + 1;
         case 3:
-          return random.nextInt(3) + 1; // TODO: Determine Attack Damage
+          return random.nextInt(3) + 1;
         default:
           return -1;
       }
@@ -84,7 +87,6 @@ public class Fire extends Pokemon {
    * @param atkType Attack Type represented by int.
    * @return Multiplier depending on types, 1.0 if atkType is 1 (Basic).
    */
-  public double getAttackMultiplier(Pokemon p, int atkType) {
-    return super.getAttackMultiplier(p, atkType);
-  }
+  @Override
+  public double getAttackMultiplier(Pokemon p, int atkType) { return super.getAttackMultiplier(p, atkType); }
 }

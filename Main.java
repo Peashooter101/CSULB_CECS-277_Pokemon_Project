@@ -32,7 +32,7 @@ class Main {
     System.out.println();
 
     // Create Player Trainer
-    player = new Trainer(playerName, playerPokemon, map);
+    player = new Trainer(playerName, playerPokemon);
 
     // Prompt Main Menu
     while (mainMenuActive) {

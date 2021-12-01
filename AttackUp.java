@@ -1,5 +1,8 @@
 import java.util.Random;
-
+/**
+ * AttackUp Buff Decorator
+ * - Increases base attack score by 1 - 2.
+ */
 public class AttackUp extends PokemonDecorator {
 	
 	public AttackUp(Pokemon p) {

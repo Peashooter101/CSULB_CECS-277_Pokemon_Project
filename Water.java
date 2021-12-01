@@ -1,5 +1,7 @@
 import java.util.Random;
-
+/**
+ * Water Type Pokemon Class
+ */
 public class Water extends Pokemon {
 
   public Water(String n, int h, int m) {
@@ -26,9 +28,8 @@ public class Water extends Pokemon {
    */
   @Override
   public int getNumAttackMenuItems(int atkType) {
-    if (atkType == 1) { super.getNumAttackMenuItems(atkType); }
     if (atkType == 2) { return 3; }
-    return -1;
+    return super.getNumAttackMenuItems(atkType);
   }
 
   /**

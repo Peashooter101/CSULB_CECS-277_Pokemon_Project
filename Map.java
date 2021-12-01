@@ -4,25 +4,27 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
-* Defines the map structure.
-* Aggregated to Trainer.
-*/
+ * Singleton Class used to create a Map for the player to play on.
+ */
 public class Map {
   private char [][] map;
   private boolean [][] revealed;
   private static Map instance = null;
 
-  /*
-  * Loads the first map on creation.
-  */
+  /**
+   * Private Constructor
+   * Accessible only through getInstance().
+   * Only one instance of this class may exist.
+   */
   private Map() {
     loadMap(1);
   }
 
-  /*
-  * Singleton Design Pattern.
-  * @return Instance of Map.
-  */
+  /**
+   * Retrieves the Map.
+   * If instance does not exist, create it.
+   * @return Map Instance
+   */
   public static Map getInstance(){
     if(instance == null){
       instance = new Map();
@@ -30,14 +32,13 @@ public class Map {
     return instance;
   }
 
-  /*
-  * Loads the map into memory based on the given integer.
-  * Assumes format of File name as "AreaN.txt" where N is area number.
-  * If FileNotFoundException is thrown, nothing happens.
-  * Supports any sized map.
-  *
-  * @param mapNum Represents map text file number, i.e. 1 means file "Area1.txt"
-  */
+  /**
+   * Loads the map into memory based on the given integer.
+   * Assumes format of File name as "AreaN.txt" where N is area number.
+   * If FileNotFoundException is thrown, nothing happens.
+   * Supports any sized map.
+   * @param mapNum Represents map text file number, i.e. 1 means file "Area1.txt"
+   */
   public void loadMap(int mapNum) {
     Scanner fileScan;
     File file = new File("src/Area"+mapNum+".txt");
@@ -79,25 +80,23 @@ public class Map {
     for (int i = 0; i < xCount; i++) { revealed[i] = new boolean[map[i].length]; }
   }
 
-  /*
-  * Finds the character at the location given.
-  * Returns '\0' should there be an invalid point given.
-  *
-  * @return Character representing the location. '\0' if an invalid point.
-  */
+  /**
+   * Finds the character at the location given.
+   * Returns '\0' should there be an invalid point given.
+   * @return Character representing the location. '\0' if an invalid point.
+   */
   public char getCharAtLoc(Point p) {
     if (p.getX() < 0 || p.getX() >= map.length) { return '\0'; }
     if (p.getY() < 0 || p.getY() >= map[(int) p.getX()].length) { return '\0'; }
     return map[(int) p.getX()][(int) p.getY()];
   }
 
-  /*
-  * Translates the map into a String.
-  * The returned String will show x in unrevealed spots.
-  * Provided location will be marked as * for the trainer.
-  *
-  * @param p Location of the Trainer.
-  */
+  /**
+   * Translates the map into a String.
+   * The returned String will show x in unrevealed spots.
+   * Provided location will be marked as * for the trainer.
+   * @param p Location of the Trainer.
+   */
   public String mapToString(Point p) {
     String returnString = "";
 
@@ -120,13 +119,12 @@ public class Map {
     return returnString;
   }
 
-  /*
-  * Returns the location of the start point.
-  * If a start point cannot be found, null is returned.
-  * If a start is found, it is revealed and returned.
-  *
-  * @return Point Object that represents the location. Returns null if not found.
-  */
+  /**
+   * Returns the location of the start point.
+   * If a start point cannot be found, null is returned.
+   * If a start is found, it is revealed and returned.
+   * @return Point Object that represents the location. Returns null if not found.
+   */
   public Point findStart() {
     int foundX = Integer.MIN_VALUE;
     int foundY = Integer.MIN_VALUE;
@@ -150,12 +148,11 @@ public class Map {
     return returnPoint;
   }
 
-  /*
-  * Reveals a location on the map.
-  * If the map location is invalid, nothing happens.
-  *
-  * @param p Point to reveal.
-  */
+  /**
+   * Reveals a location on the map.
+   * If the map location is invalid, nothing happens.
+   * @param p Point to reveal.
+   */
   public void reveal(Point p) {
 
     if (p.getX() < 0 || p.getX() >= revealed.length) { return; }
@@ -164,11 +161,14 @@ public class Map {
 
   }
 
+  /**
+   * Removes a character at the given location.
+   * If the map location is invalid, nothing happens.
+   * @param p Point to set to 'n' (Nothing).
+   */
   public void removeCharAtLoc(Point p) {
-
     if (p.getX() < 0 || p.getX() >= map.length) { return; }
     if (p.getY() < 0 || p.getY() >= map[(int) p.getX()].length) { return; }
     map[(int) p.getX()][(int) p.getY()] = 'n';
   }
-
 }

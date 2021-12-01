@@ -1,5 +1,7 @@
-import java.util.Random;
-
+/**
+ * AttackDown Debuff Decorator
+ * - Lowers base attack score by 1.
+ */
 public class AttackDown extends PokemonDecorator {
 	
 	public AttackDown(Pokemon p) { super(p, "-ATK", 0); }

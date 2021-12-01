@@ -1,5 +1,7 @@
 import java.util.Random;
-
+/**
+ * Grass Type Pokemon Class
+ */
 public class Grass extends Pokemon {
 
   public Grass(String n, int h, int m) {
@@ -26,9 +28,8 @@ public class Grass extends Pokemon {
    */
   @Override
   public int getNumAttackMenuItems(int atkType) {
-    if (atkType == 1) { super.getNumAttackMenuItems(atkType); }
     if (atkType == 2) { return 3; }
-    return -1;
+    return super.getNumAttackMenuItems(atkType);
   }
 
   /**

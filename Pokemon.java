@@ -1,8 +1,8 @@
 import java.util.Random;
 
-/*
-* Represents a Pokemon Entity.
-*/
+/**
+ * Represents a Pokemon Entity.
+ */
 public abstract class Pokemon extends Entity {
   
   /**
@@ -11,41 +11,36 @@ public abstract class Pokemon extends Entity {
    */
   public static final double [][] battleTable = {{1,.5,2},{2,1,.5},{.5,2,1}};
 
-  /*
-  * Constructor creates a new Pokemon.
-  * A random HP (20 - 30) is selected upon creation.
-  *
-  * @param n String representing the Pokemon's name.
-  */
+  /**
+   * Constructor creates a new Pokemon.
+   * @param n String representing the Pokemon's name.
+   * @param h Current Health
+   * @param m Max Health
+   */
   public Pokemon(String n, int h, int m) {
     super(n, h, m);
   }
 
   /**
    * Returns the attack type menu.
-   *
    * @return String representing the attack type menu.
    */
   public String getAttackTypeMenu() { return "1. Basic Attack\n2. Special Attack"; }
 
   /**
    * Returns the number of items in the attack type menu.
-   *
    * @return Integer for total menu items.
    */
   public int getNumAttackTypeMenuItems() { return 2; }
 
   /**
-   * Returns a string representing the menu.
+   * Returns a string representing the attack menu.
    * @param atkType Attack Type represented as int.
    * @return Menu for Attack Type, otherwise "INVALID MENU".
    */
   public String getAttackMenu(int atkType) {
-
     if (atkType == 1) { return "1. Slam\n2. Tackle\n3. Punch"; }
-
     return "[FATAL ERROR] INVALID ATTACK MENU in " + this.getClass().toString();
-
   }
 
   /**
@@ -55,7 +50,6 @@ public abstract class Pokemon extends Entity {
    */
   public int getNumAttackMenuItems(int atkType) {
     if (atkType == 1) { return 3; }
-
     return -1;
   }
 
@@ -107,10 +101,10 @@ public abstract class Pokemon extends Entity {
   }
 
   /**
-   * Returns the attack damage.
+   * Returns the attack damage without Multiplier.
    * @param atkType Attack Type represented as int.
    * @param move Move represented as int.
-   * @return Damage value to be used, -1 if invalid atkType / move.
+   * @return Damage value to be used, 0 if invalid atkType / move.
    */
   public int getAttackDamage(int atkType, int move) {
     Random random = new Random();
@@ -123,10 +117,12 @@ public abstract class Pokemon extends Entity {
         case 3:
           return random.nextInt(4) + 1;
         default:
-          return -1;
+          System.out.println("Invalid Move");
+          return 0;
       }
     }
-    return -2;
+    System.out.println("Invalid Attack Type");
+    return 0;
   }
 
   /**
@@ -147,10 +143,7 @@ public abstract class Pokemon extends Entity {
    * @param atkType Attack Type represented by int.
    * @return Attack Bonus
    */
-  public int getAttackBonus(int atkType) {
-    if (atkType == 1) { return 0; }
-    return 0;
-  }
+  public int getAttackBonus(int atkType) { return 0; }
 
   /**
    * Returns the type based on the Class used for the Pokemon.
