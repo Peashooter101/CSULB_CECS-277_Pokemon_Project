@@ -9,7 +9,6 @@ public class Trainer extends Entity {
 
   private int money, potions, pokeballs;
   private Point loc;
-  private Map map;
   private ArrayList<Pokemon> pokemon; 
   
   public Trainer(String n, Pokemon p, Map m) {
@@ -17,8 +16,7 @@ public class Trainer extends Entity {
     super(n, 25, 25);
     this.pokemon = new ArrayList<Pokemon>();
     this.pokemon.add(p);
-    this.map = m;
-    this.loc = m.findStart();
+    this.loc = Map.getInstance().findStart();
     money = 25;
     potions = 1;
     pokeballs = 5;
@@ -79,6 +77,7 @@ public class Trainer extends Entity {
     Pokemon p = getPokemon(pokeIndex);
     if (p == null || !hasPotion()) { return; }
     p.heal();
+    pokemon.set(pokeIndex - 1, PokemonGenerator.getInstance().addRandomBuff(p));
     potions--;
   }
 
@@ -129,10 +128,10 @@ public class Trainer extends Entity {
   */
   public char goNorth() {
     Point destination = new Point((int)this.loc.getX() - 1, (int)this.loc.getY());
-    if (map.getCharAtLoc(destination) == '\0') { return '\0'; }
+    if (Map.getInstance().getCharAtLoc(destination) == '\0') { return '\0'; }
     this.loc = destination;
-    map.reveal(loc);
-    return map.getCharAtLoc(loc);
+    Map.getInstance().reveal(loc);
+    return Map.getInstance().getCharAtLoc(loc);
   }
 
   /*
@@ -145,10 +144,10 @@ public class Trainer extends Entity {
   */
   public char goSouth() {
     Point destination = new Point((int)this.loc.getX() + 1, (int)this.loc.getY());
-    if (map.getCharAtLoc(destination) == '\0') { return '\0'; }
+    if (Map.getInstance().getCharAtLoc(destination) == '\0') { return '\0'; }
     this.loc = destination;
-    map.reveal(loc);
-    return map.getCharAtLoc(loc);
+    Map.getInstance().reveal(loc);
+    return Map.getInstance().getCharAtLoc(loc);
   }
 
   /*
@@ -161,10 +160,10 @@ public class Trainer extends Entity {
   */
   public char goEast() {
     Point destination = new Point((int)this.loc.getX(), (int)this.loc.getY() + 1);
-    if (map.getCharAtLoc(destination) == '\0') { return '\0'; }
+    if (Map.getInstance().getCharAtLoc(destination) == '\0') { return '\0'; }
     this.loc = destination;
-    map.reveal(loc);
-    return map.getCharAtLoc(loc);
+    Map.getInstance().reveal(loc);
+    return Map.getInstance().getCharAtLoc(loc);
   }
 
   /*
@@ -177,10 +176,10 @@ public class Trainer extends Entity {
   */
   public char goWest() {
     Point destination = new Point((int)this.loc.getX(), (int)this.loc.getY() - 1);
-    if (map.getCharAtLoc(destination) == '\0') { return '\0'; }
+    if (Map.getInstance().getCharAtLoc(destination) == '\0') { return '\0'; }
     this.loc = destination;
-    map.reveal(loc);
-    return map.getCharAtLoc(loc);
+    Map.getInstance().reveal(loc);
+    return Map.getInstance().getCharAtLoc(loc);
   }
 
   /*
@@ -198,6 +197,17 @@ public class Trainer extends Entity {
     for (Pokemon p : pokemon) {
       p.heal();
     }
+  }
+
+  public void buffAllPokemon(){
+    for(int i = 0; i < pokemon.size(); i++){
+      pokemon.set(i, PokemonGenerator.getInstance().addRandomBuff(pokemon.get(i)));
+    }
+  }
+
+  public void debuffPokemon(int index){
+    Pokemon p = getPokemon(index);
+    pokemon.set(index - 1, PokemonGenerator.getInstance().addRandomDebuff(p));
   }
 
   /*
@@ -242,7 +252,7 @@ public class Trainer extends Entity {
     returnString += "Pokemon\n-------\n";
     returnString += getPokemonList() + "\n";
     returnString += "Map:" + "\n";
-    returnString += map.mapToString(this.loc);
+    returnString += Map.getInstance().mapToString(this.loc);
     return returnString;
   }
 
