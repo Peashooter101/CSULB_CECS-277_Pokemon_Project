@@ -9,7 +9,13 @@
  */
 public abstract class PokemonDecorator extends Pokemon {
 	private Pokemon pokemon;
-	
+
+	/**
+	 * Constructor for Decorators
+	 * @param p Pokemon to Decorate
+	 * @param extraName Additional String for Name to indicate Buffs/Debuffs
+	 * @param extraHp Affected by HP Up/Down
+	 */
 	public PokemonDecorator(Pokemon p, String extraName, int extraHp) {
 		super(p.getName() + " " + extraName, p.getHp() + extraHp, p.getMaxHp() + extraHp);
 		pokemon = p;
@@ -41,7 +47,7 @@ public abstract class PokemonDecorator extends Pokemon {
 	 * Basics should be in Pokemon
 	 * @param atkType Attack Type represented as int.
 	 * @param move Move represented as int.
-	 * @return
+	 * @return Partial String for attack.
 	 */
 	@Override
 	public String getAttackString(int atkType, int move) {
@@ -58,7 +64,7 @@ public abstract class PokemonDecorator extends Pokemon {
 	 * @return int representing total attack damage without multiplier.
 	 */
 	@Override
-	public int getAttackDamage(int atkType, int move) { return pokemon.getAttackBonus(atkType); }
+	public int getAttackDamage(int atkType, int move) { return pokemon.getAttackDamage(atkType, move); }
 
 	/**
 	 * Returns the attack multiplier.

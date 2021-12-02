@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Class for testing aspects of the program.
@@ -29,6 +30,10 @@ public class Test {
 
         try { testPokemonAttackValuesBuffsSlam(); }
         catch (Exception e) { System.out.println("Failed: Pokemon Attack Values Buffs Slam"); }
+
+        try { testPokemonFight(); }
+        catch (Exception e) { System.out.println("Failed: Pokemon Fight"); }
+
 
     }
 
@@ -133,6 +138,19 @@ public class Test {
         System.out.print("Defender: " + p2.toString());
         System.out.println("═════");
         for (int i = 0; i < 100000; i++) { System.out.println(p1.attack(p2, 1, 1)); }
+    }
+
+    private static void testPokemonFight() {
+        System.out.println("╔═════\n║ Pokemon Fight\n╚═════");
+        Pokemon p1 = PokemonGenerator.getInstance().generateRandomPokemon(1);
+        Pokemon p2 = PokemonGenerator.getInstance().generateRandomPokemon(1);
+
+        p2 = PokemonGenerator.getInstance().addRandomDebuff(p2);
+
+        Trainer player = new Trainer("TESTER", p1);
+        Main.trainerAttack(player,p2, false);
+
+        for (int i = 0; i < 1; i++) { System.out.println(p1.attack(p2, 1, 1)); }
     }
 
 }

@@ -5,6 +5,12 @@ import java.util.Random;
  */
 public class Fire extends Pokemon {
 
+  /**
+   * Constructor for Pokemon of this Type
+   * @param n Name of Pokemon
+   * @param h Current HP of Pokemon (New Pokemon should have max HP)
+   * @param m Max HP of Pokemon
+   */
   public Fire(String n, int h, int m) {
     super(n,h,m);
   }
@@ -82,7 +88,6 @@ public class Fire extends Pokemon {
 
   /**
    * Returns the attack multiplier based on the battle table.
-   * TODO: Figure out why this is overridden here.
    * @param p Pokemon
    * @param atkType Attack Type represented by int.
    * @return Multiplier depending on types, 1.0 if atkType is 1 (Basic).

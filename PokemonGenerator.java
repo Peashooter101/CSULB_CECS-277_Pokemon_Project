@@ -18,7 +18,7 @@ public class PokemonGenerator {
 	 */
 	private PokemonGenerator() {
 		try {
-			pokemon = new HashMap<String, String>();
+			pokemon = new HashMap<>();
 			Scanner r = new Scanner(new File("PokemonList.txt"));
 			
 			while (r.hasNextLine()) {

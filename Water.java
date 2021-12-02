@@ -4,6 +4,12 @@ import java.util.Random;
  */
 public class Water extends Pokemon {
 
+  /**
+   * Constructor for Pokemon of this Type
+   * @param n Name of Pokemon
+   * @param h Current HP of Pokemon (New Pokemon should have max HP)
+   * @param m Max HP of Pokemon
+   */
   public Water(String n, int h, int m) {
     super(n,h,m);
   }
@@ -15,7 +21,7 @@ public class Water extends Pokemon {
    */
   @Override
   public String getAttackMenu(int atkType) {
-    if (atkType == 1) { super.getAttackMenu(atkType); }
+    if (atkType == 1) { return super.getAttackMenu(atkType); }
     if (atkType == 2) { return "1.Water Gun\n2.Bubble Beam\n3.Waterfall"; }
 
     return "[FATAL ERROR] INVALID ATTACK MENU in " + this.getClass().getName();
@@ -81,7 +87,6 @@ public class Water extends Pokemon {
 
   /**
    * Returns the attack multiplier based on the battle table.
-   * TODO: Figure out why this is overridden here.
    * @param p Pokemon
    * @param atkType Attack Type represented by int.
    * @return Multiplier depending on types, 1.0 if atkType is 1 (Basic).

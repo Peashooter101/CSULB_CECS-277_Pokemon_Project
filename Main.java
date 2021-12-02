@@ -94,21 +94,32 @@ class Main {
       }
       // Finish and Switch Maps
       if (mapMarker == 'f') {
-        System.out.println("You found the finish!\n");
-        if (player.getLocation().equals(MAP_1_FINISH)) {
-          level++;
-          map.loadMap(2);
+        System.out.println("You found the gym!\n");
+        Pokemon opponent = chooseRandomPokemon(level + 2);
+        System.out.println("The Gym Leader laughs...\n\"You think you have what it takes?\"\n\nThe Gym Leader sends out " + opponent.getName() + "!\n");
+        trainerAttack(player, opponent, true);
+
+        // If Opponent is defeated.
+        if (opponent.getHp() == 0) {
+          int moneyGained = rand.nextInt(16) + 5;
+          player.receiveMoney(moneyGained);
+          System.out.println("You defeated the Gym Leader!\n\"Maybe I did underestimate you...\"\n");
+          System.out.println("You gained " + moneyGained + " money for defeating the Gym Leader!\n");
+          if (player.getLocation().equals(MAP_1_FINISH)) {
+            map.loadMap(2);
+          }
+          else if (player.getLocation().equals(MAP_2_FINISH)) {
+            map.loadMap(3);
+          }
+          else if (player.getLocation().equals(MAP_3_FINISH)) {
+            map.loadMap(1);
+          }
+          else {
+            System.out.println("[FATAL ERROR] INVALID FINISH LOCATION");
+          }
+          player.buffAllPokemon();
           map.reveal(player.getLocation());
-        }
-        if (player.getLocation().equals(MAP_2_FINISH)) {
           level++;
-          map.loadMap(3);
-          map.reveal(player.getLocation());
-        }
-        if (player.getLocation().equals(MAP_3_FINISH)) {
-          level++;
-          map.loadMap(1);
-          map.reveal(player.getLocation());
         }
       }
       // Nothing Found
@@ -134,7 +145,7 @@ class Main {
         Pokemon wild = chooseRandomPokemon(level);
         System.out.println("You encountered a wild " + wild.getName() + "!\n");
         int pokemonNum = player.getNumPokemon();
-        trainerAttack(player, wild);
+        trainerAttack(player, wild, false);
 
         // If Pokemon is defeated.
         if (wild.getHp() == 0) {
@@ -143,7 +154,7 @@ class Main {
           player.receiveMoney(moneyGained);
           System.out.println("You defeated the wild " + wild.getName() + "!");
           System.out.println("You gained " + moneyGained + " money for defeating the wild " + wild.getName() + "!\n");
-        };
+        }
 
         // If Pokemon was captured.
         if (pokemonNum != player.getNumPokemon()) { map.removeCharAtLoc(player.getLocation()); }
@@ -173,7 +184,7 @@ class Main {
             System.out.println("Do you help him? (Y/N)");
 
             if (CheckInput.getYesNo()) {
-              trainerAttack(player, pokemon);
+              trainerAttack(player, pokemon, false);
               // If Pokemon was defeated.
               if (pokemon.getHp() == 0) {
                 int moneyGained = rand.nextInt(7) + 4;
@@ -238,87 +249,134 @@ class Main {
     return pokemonGenerator.generateRandomPokemon(level);
   }
 
-  /*
-  * Handles the entire combat system.
-  * 
-  * @param t Represents the attacking Trainer
-  * @param wild Represents the wild Pokemon encountered.
-  */
-  static Pokemon trainerAttack(Trainer t, Pokemon wild) {
-    
-    final String FIGHT_MENU = "What will you do?\n1. Fight\n2. Use Potion\n3. Throw Poke Ball\n4. Run Away";
+  /**
+   * Handles the entire combat system.
+   *
+   * @param t Represents the attacking Trainer
+   * @param opponent Represents the opponent Pokemon encountered.
+   * @param gym Represents the Gym Battle (No Pokeball or Flee)
+   * @return Decorated Pokemon
+   */
+  static Pokemon trainerAttack(Trainer t, Pokemon opponent, boolean gym) {
 
-    boolean fightCycle = true;
+    final String WILD_MENU = "What will you do?\n1. Fight\n2. Use Potion\n3. Throw Poke Ball\n4. Run Away";
+    final String GYM_MENU = "What will you do?\n1. Fight\n2. Use Potion";
+
+    boolean intimidationCheck = true;
     boolean allFaintCheck;
+    int battleSelection;
     Random rand = new Random();
 
-    while (fightCycle) {
-      System.out.println("Opponent\n" + wild.toString());
+    while (true) {
+      System.out.println("Opponent\n  " + opponent.toString());
 
       // Exit Conditions: Battle Ends due to Pokemon Faint or Player Death.
-      if (wild.getHp() == 0) { return wild; } //Temporary return place holder
-      if (t.getHp() == 0) { return wild ; } //Temporary return place holder
+      if (opponent.getHp() == 0) { return opponent; } //Temporary return place holder
+      if (t.getHp() == 0) { return opponent; } //Temporary return place holder
 
       // Checks if all user's pokemon are fainted
       allFaintCheck = true;
       for (int i = 1; i <= t.getNumPokemon(); i++) {
         if (t.getPokemon(i).getHp() != 0) { allFaintCheck = false; }
       }
-      if (allFaintCheck) { 
-        int dmg = rand.nextInt(5) + 1;
+
+      // Exit Condition: Checks if all Pokemon are fainted.
+      if (allFaintCheck) {
         System.out.println("All of your Pokemon have fainted!");
-        System.out.println(wild.getName() + " charges at you and you take " + dmg + " damage!");
-        t.takeDamage(dmg);
-        System.out.println(wild.getName() + " begins to flee...");
-        System.out.println("");
-        return wild; //Temporary return place holder
-       }
+        // If Gym Battle, user just flees.
+        if (gym) {
+          switch(rand.nextInt(4)) {
+            case 0:
+              if (t.goNorth() != '\0') { break; }
+              if (t.goSouth() != '\0') { break; }
+            case 1:
+              if (t.goSouth() != '\0') { break; }
+              if (t.goNorth() != '\0') { break; }
+            case 2:
+              if (t.goEast() != '\0') { break; }
+              if (t.goWest() != '\0') { break; }
+            case 3:
+              if (t.goWest() != '\0') { break; }
+              if (t.goEast() != '\0') { break; }
+          }
+          System.out.println("You fled the battle...\nThe Gym Leader calls out to you, \"BETTER LUCK NEXT TIME!\"\n");
+        }
+        // If Wild Battle, user gets attacked and the Pokemon flees.
+        else {
+          int dmg = rand.nextInt(5) + 1;
+          System.out.println(opponent.getName() + " charges at you and you take " + dmg + " damage!");
+          t.takeDamage(dmg);
+          System.out.println(opponent.getName() + " begins to flee...");
+          System.out.println();
+        }
+        return null;
+      }
 
       // Prompt and make selection.
-      System.out.println(FIGHT_MENU);
-      switch (CheckInput.getIntRange(1,4)) {
+      if (gym) {
+        System.out.println(GYM_MENU);
+        battleSelection = CheckInput.getIntRange(1, 2);
+      } else {
+        System.out.println(WILD_MENU);
+        battleSelection = CheckInput.getIntRange(1, 4);
+      }
+      switch (battleSelection) {
         // Fight
         case 1:
           // Prompt for Pokemon
           System.out.println("Choose a Pokemon to fight:");
           System.out.print(t.getPokemonList());
-          Pokemon chosenPokemon = t.getPokemon(CheckInput.getIntRange(1,t.getNumPokemon()));
-          System.out.println("");
+          int chosenPokemonIndex = CheckInput.getIntRange(1, t.getNumPokemon());
+          Pokemon chosenPokemon = t.getPokemon(chosenPokemonIndex);
+          System.out.println();
 
           // If Pokemon is fainted.
           if (chosenPokemon.getHp() == 0) {
             int dmg = rand.nextInt(5) + 1;
             System.out.println(chosenPokemon.getName() + " is unable to battle!");
-            System.out.println(wild.getName() + " charges at you and you take " + dmg + " damage!");
+            System.out.println(opponent.getName() + " charges at you and you take " + dmg + " damage!");
             t.takeDamage(dmg);
-            System.out.println("");
+            System.out.println();
             break;
           }
 
           System.out.println(chosenPokemon.getName() + ", I choose you!");
 
-          // Choose move.
-          System.out.println(chosenPokemon.getAttackTypeMenu());  //Should print 1. Basic Attack 2. Special
-          if (CheckInput.getInt()== 1) {
-            System.out.println(chosenPokemon.getAttackMenu(1));
-            System.out.println(chosenPokemon.basicAttack(wild, CheckInput.getIntRange(1,chosenPokemon.getNumBasicMenuItems())));
-          } else {
-            System.out.println(chosenPokemon.getAttackMenu(2));
-            System.out.println(chosenPokemon.specialAttack(wild, CheckInput.getIntRange(1,chosenPokemon.getNumSpecialMenuItems())));
+          // Intimidation Check: Debuff Chance in First Round
+          if (intimidationCheck) {
+            int intimidation = rand.nextInt(100);
+            // Intimidation Check: Player's Pokemon got Intimidated 10% (0 - 9)
+            if (intimidation < 10) {
+              System.out.println("Your Pokemon got intimidated and is now debuffed!");
+              t.debuffPokemon(chosenPokemonIndex);
+            }
+            // Intimidation Check: Opponent got Intimidated 25% (10 - 34)
+            else if (intimidation < 35) {
+              System.out.println("Your Opponent got intimidated and is now debuffed!");
+              opponent = PokemonGenerator.getInstance().addRandomDebuff(opponent);
+            }
+            // Intimidation Check: Neither Opponent or Player Pokemon was intimidated.
+            else {
+              System.out.println("Both Pokemon tried to act tough but neither intimidated each other...");
+            }
+            intimidationCheck = false;
           }
+
+          // Choose move.
+          System.out.println(chosenPokemon.getAttackTypeMenu());
+          int atkType = CheckInput.getIntRange(1, chosenPokemon.getNumAttackTypeMenuItems());
+          System.out.println(chosenPokemon.getAttackMenu(atkType));
+          System.out.println(chosenPokemon.attack(opponent, atkType, CheckInput.getIntRange(1,chosenPokemon.getNumAttackMenuItems(atkType))));
 
           // If Pokemon was defeated mid-turn.
-          if (wild.getHp() == 0) { break; }
+          if (opponent.getHp() == 0) { break; }
 
           // Pokemon Random Move
-          System.out.println("The wild " + wild.getName() + " is attacking!");
-          if (rand.nextInt(2) == 0) {
-            System.out.println(wild.basicAttack(chosenPokemon, rand.nextInt(3) + 1));
-          } else {
-            System.out.println(wild.specialAttack(chosenPokemon, rand.nextInt(3) + 1));
-          }
+          System.out.println("The opponent " + opponent.getName() + " is attacking!");
+          int atkTypeOpp = rand.nextInt(2) + 1;
+          System.out.println(opponent.attack(chosenPokemon, atkTypeOpp, (rand.nextInt(opponent.getNumAttackMenuItems(atkTypeOpp)) + 1)));
 
-          System.out.println("");
+          System.out.println();
 
           break;
         // Use Potion
@@ -344,7 +402,7 @@ class Main {
           } else {
             t.usePotion(pokeChoice);
             System.out.println("You used a potion:");
-            System.out.println(pokemon.toString());
+            System.out.println(t.getPokemon(pokeChoice).toString());
           }
           break;
         // Use Pokeball
@@ -354,11 +412,11 @@ class Main {
             break;
           }
           
-          if (t.catchPokemon(wild)) {
-            System.out.println(wild.getName() + " was successfully captured!\n");
-            return wild; //Temporary return place holder
+          if (t.catchPokemon(opponent)) {
+            System.out.println(opponent.getName() + " was successfully captured!\n");
+            return opponent; //Temporary return place holder
           } else {
-            System.out.println("Failed to capture " + wild.getName() + "!\n");
+            System.out.println("Failed to capture " + opponent.getName() + "!\n");
           }
           break;
         // Run Away
@@ -366,18 +424,19 @@ class Main {
           switch(rand.nextInt(4)) {
             case 0:
               if (t.goNorth() != '\0') { break; }
+              if (t.goSouth() != '\0') { break; }
             case 1:
               if (t.goSouth() != '\0') { break; }
+              if (t.goNorth() != '\0') { break; }
             case 2:
               if (t.goEast() != '\0') { break; }
+              if (t.goWest() != '\0') { break; }
             case 3:
               if (t.goWest() != '\0') { break; }
-              if (t.goNorth() != '\0') { break; }
-              if (t.goSouth() != '\0') { break; }
               if (t.goEast() != '\0') { break; }
           }
           System.out.println("You fled the battle...\n");
-          return wild; //Temporary return place holder
+          return null;
       }
     }
   }
@@ -398,7 +457,7 @@ class Main {
 
     // Menu Variables
     boolean mainMenu = true;
-    boolean martMenu = true;
+    boolean martMenu;
 
     while (mainMenu) {
 

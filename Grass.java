@@ -4,6 +4,12 @@ import java.util.Random;
  */
 public class Grass extends Pokemon {
 
+  /**
+   * Constructor for Pokemon of this Type
+   * @param n Name of Pokemon
+   * @param h Current HP of Pokemon (New Pokemon should have max HP)
+   * @param m Max HP of Pokemon
+   */
   public Grass(String n, int h, int m) {
     super(n,h,m);
   }
@@ -15,7 +21,7 @@ public class Grass extends Pokemon {
    */
   @Override
   public String getAttackMenu(int atkType) {
-    if (atkType == 1) { super.getAttackMenu(atkType); }
+    if (atkType == 1) { return super.getAttackMenu(atkType); }
     if (atkType == 2) { return "1.Vine Whip\n2.Razor Leaf\n3.Solar Beam"; }
 
     return "[FATAL ERROR] INVALID ATTACK MENU in " + this.getClass().getName();
@@ -81,7 +87,6 @@ public class Grass extends Pokemon {
 
   /**
    * Returns the attack multiplier based on the battle table.
-   * TODO: Figure out why this is overridden here.
    * @param p Pokemon
    * @param atkType Attack Type represented by int.
    * @return Multiplier depending on types, 1.0 if atkType is 1 (Basic).

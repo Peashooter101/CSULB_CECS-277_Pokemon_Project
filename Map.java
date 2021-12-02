@@ -41,7 +41,7 @@ public class Map {
    */
   public void loadMap(int mapNum) {
     Scanner fileScan;
-    File file = new File("src/Area"+mapNum+".txt");
+    File file = new File("Area"+mapNum+".txt");
     int xCount = 0;
     int xIndex = 0;
 

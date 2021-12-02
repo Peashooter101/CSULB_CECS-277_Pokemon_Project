@@ -61,7 +61,8 @@ public abstract class Pokemon extends Entity {
    * @return Message describing the event.
    */
   public String attack(Pokemon p, int atkType, int move) {
-    int attackDmg = getAttackDamage(atkType, move);
+    int attackDmg = getAttackDamage(atkType, move) + getAttackBonus(atkType);
+    if (attackDmg < 0) { attackDmg = 0; }
     double attackMod = getAttackMultiplier(p, atkType);
     attackDmg *= attackMod;
     String attackString = getAttackString(atkType, move);
@@ -69,7 +70,7 @@ public abstract class Pokemon extends Entity {
 
     p.takeDamage(attackDmg);
 
-    returnString += getName() + " was " + attackString + " " + p.getName() + " dealing " + attackDmg + " damage!";
+    returnString += getName() + " " + attackString + " " + p.getName() + " dealing " + attackDmg + " damage!";
     if (attackMod == 2.0) { returnString += "\nIt was super effective!"; }
     if (attackMod == 0.5) { returnString += "\nIt was not very effective!"; }
 

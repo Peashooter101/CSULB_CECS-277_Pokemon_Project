@@ -105,6 +105,15 @@ public class Trainer extends Entity {
 
     if (Math.random() <= captureChance) {
       this.pokemon.add(p);
+
+      // Verify Size, max of 6
+      if (pokemon.size() > 6) {
+        System.out.println("You have too many pokemon in your team! You gotta get rid of one!");
+        System.out.println(getPokemonList());
+        int removeIndex = CheckInput.getIntRange(1, pokemon.size());
+        System.out.println("Say goodbye to " + pokemon.get(removeIndex-1).getName() + "! :c");
+        pokemon.remove(removeIndex-1);
+      }
       return true;
     }
     return false;
