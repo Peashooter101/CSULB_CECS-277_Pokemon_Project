@@ -16,8 +16,8 @@ public class Fire extends Pokemon {
    */
   @Override
   public String getAttackMenu(int atkType) {
-    if (atkType == 1) { super.getAttackMenu(atkType); }
-    if (atkType == 2) { return "ATTACK MENU"; }
+    if (atkType == 1) { return super.getAttackMenu(atkType); }
+    if (atkType == 2) { return "1.Ember\n2.Fire Blast\n3. Fire Punch"; }
 
     return "[FATAL ERROR] INVALID ATTACK MENU in " + this.getClass().getName();
   }

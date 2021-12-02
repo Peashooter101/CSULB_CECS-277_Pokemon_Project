@@ -16,7 +16,7 @@ public class Water extends Pokemon {
   @Override
   public String getAttackMenu(int atkType) {
     if (atkType == 1) { super.getAttackMenu(atkType); }
-    if (atkType == 2) { return "ATTACK MENU"; }
+    if (atkType == 2) { return "1.Water Gun\n2.Bubble Beam\n3.Waterfall"; }
 
     return "[FATAL ERROR] INVALID ATTACK MENU in " + this.getClass().getName();
   }

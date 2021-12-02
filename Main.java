@@ -244,7 +244,7 @@ class Main {
   * @param t Represents the attacking Trainer
   * @param wild Represents the wild Pokemon encountered.
   */
-  static void trainerAttack(Trainer t, Pokemon wild) {
+  static Pokemon trainerAttack(Trainer t, Pokemon wild) {
     
     final String FIGHT_MENU = "What will you do?\n1. Fight\n2. Use Potion\n3. Throw Poke Ball\n4. Run Away";
 
@@ -256,8 +256,8 @@ class Main {
       System.out.println("Opponent\n" + wild.toString());
 
       // Exit Conditions: Battle Ends due to Pokemon Faint or Player Death.
-      if (wild.getHp() == 0) { return; }
-      if (t.getHp() == 0) { return; }
+      if (wild.getHp() == 0) { return wild; } //Temporary return place holder
+      if (t.getHp() == 0) { return wild ; } //Temporary return place holder
 
       // Checks if all user's pokemon are fainted
       allFaintCheck = true;
@@ -271,7 +271,7 @@ class Main {
         t.takeDamage(dmg);
         System.out.println(wild.getName() + " begins to flee...");
         System.out.println("");
-        return;
+        return wild; //Temporary return place holder
        }
 
       // Prompt and make selection.
@@ -298,12 +298,12 @@ class Main {
           System.out.println(chosenPokemon.getName() + ", I choose you!");
 
           // Choose move.
-          System.out.println(chosenPokemon.getAttackMenu());
-          if (CheckInput.getIntRange(1,chosenPokemon.getNumAttackMenuItems()) == 1) {
-            System.out.println(chosenPokemon.getBasicMenu());
+          System.out.println(chosenPokemon.getAttackTypeMenu());  //Should print 1. Basic Attack 2. Special
+          if (CheckInput.getInt()== 1) {
+            System.out.println(chosenPokemon.getAttackMenu(1));
             System.out.println(chosenPokemon.basicAttack(wild, CheckInput.getIntRange(1,chosenPokemon.getNumBasicMenuItems())));
           } else {
-            System.out.println(chosenPokemon.getSpecialMenu());
+            System.out.println(chosenPokemon.getAttackMenu(2));
             System.out.println(chosenPokemon.specialAttack(wild, CheckInput.getIntRange(1,chosenPokemon.getNumSpecialMenuItems())));
           }
 
@@ -356,7 +356,7 @@ class Main {
           
           if (t.catchPokemon(wild)) {
             System.out.println(wild.getName() + " was successfully captured!\n");
-            return;
+            return wild; //Temporary return place holder
           } else {
             System.out.println("Failed to capture " + wild.getName() + "!\n");
           }
@@ -377,7 +377,7 @@ class Main {
               if (t.goEast() != '\0') { break; }
           }
           System.out.println("You fled the battle...\n");
-          return;
+          return wild; //Temporary return place holder
       }
     }
   }

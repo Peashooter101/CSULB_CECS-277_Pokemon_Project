@@ -16,7 +16,7 @@ public class Grass extends Pokemon {
   @Override
   public String getAttackMenu(int atkType) {
     if (atkType == 1) { super.getAttackMenu(atkType); }
-    if (atkType == 2) { return "ATTACK MENU"; }
+    if (atkType == 2) { return "1.Vine Whip\n2.Razor Leaf\n3.Solar Beam"; }
 
     return "[FATAL ERROR] INVALID ATTACK MENU in " + this.getClass().getName();
   }
